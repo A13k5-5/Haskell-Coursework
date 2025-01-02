@@ -18,9 +18,12 @@ pretty (x : xs) = do
 mirror :: Horse -> Horse
 mirror = map reverse
 
+transposeHelper :: Horse -> Horse
+transposeHelper ([] : _) = []
+transposeHelper x = map head x : transposeHelper (map tail x)
+
 transpose :: Horse -> Horse
-transpose ([] : _) = []
-transpose x = map head x : transpose (map tail x)
+transpose = map reverse . transposeHelper
 
 -- 3 --
 nextTrib :: (Num c) => (c, c, c) -> (c, c, c)
