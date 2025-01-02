@@ -1,5 +1,5 @@
 -- 2 --
-type Horse = [String]
+type Horse = [[Char]]
 
 horse :: Horse
 horse =
@@ -10,23 +10,17 @@ horse =
   ]
 
 pretty :: Horse -> IO ()
-pretty = mapM_ putStrLn
-
-switchChar :: Char -> Char
-switchChar '/' = '\\'
-switchChar '\\' = '/'
-switchChar '(' = ')'
-switchChar ')' = '('
-switchChar c = c
-
-switchChars :: [Char] -> [Char]
-switchChars = map switchChar
+pretty [] = return ()
+pretty (x : xs) = do
+  putStrLn x
+  pretty xs
 
 mirror :: Horse -> Horse
-mirror = map (reverse . switchChars)
+mirror = map reverse
 
 transpose :: Horse -> Horse
-transpose hor = hor
+transpose ([] : _) = []
+transpose x = map head x : transpose (map tail x)
 
 -- 3 --
 nextTrib :: (Num c) => (c, c, c) -> (c, c, c)
