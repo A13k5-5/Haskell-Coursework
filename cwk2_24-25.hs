@@ -12,12 +12,6 @@ horse =
 text :: [String]
 text = ["abc", "def", "ghi"]
 
-pretty :: Horse -> IO ()
-pretty [] = return ()
-pretty (x : xs) = do
-  putStrLn x
-  pretty xs
-
 mirror :: Horse -> Horse
 mirror = map reverse
 
@@ -50,5 +44,24 @@ lazyCaterer :: Int -> [Int]
 lazyCaterer k = [lazycatererNth a | a <- [0 .. k - 1]]
 
 -- 4 --
--- horseSeq :: (Int -> [Int]) -> Int -> Horse -> IO ()
--- horseSeq f n h = do
+pretty :: Horse -> IO ()
+pretty [] = return ()
+pretty (x : xs) = do
+  putStrLn x
+  pretty xs
+
+concatHorses :: Int -> Horse -> Horse
+concatHorses n h = foldr1 (zipWith (++)) (replicate n h)
+
+prettyMore :: Horse -> Int -> IO ()
+prettyMore h n = pretty (concatHorses n h)
+
+printHorses :: [Int] -> Horse -> IO ()
+printHorses [] _ = return ()
+printHorses (x : xs) h = do
+  prettyMore h x
+  printHorses xs h
+
+horseSeq :: (Int -> [Int]) -> Int -> Horse -> IO ()
+-- horseSeq :: (Int -> [Int]) -> Int -> Horse -> [Int]
+horseSeq f n = printHorses (filter (> 0) (f n))
