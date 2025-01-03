@@ -63,5 +63,13 @@ printHorses (x : xs) h = do
   printHorses xs h
 
 horseSeq :: (Int -> [Int]) -> Int -> Horse -> IO ()
--- horseSeq :: (Int -> [Int]) -> Int -> Horse -> [Int]
 horseSeq f n = printHorses (filter (> 0) (f n))
+
+-- 5 --
+shead :: [a] -> Maybe a
+shead [] = Nothing
+shead xs = Just (head xs)
+
+stail :: [a] -> Maybe [a]
+stail [] = Nothing
+stail xs = Just (tail xs)
