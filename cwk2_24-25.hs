@@ -38,7 +38,7 @@ lazycatererNth :: Int -> Int
 lazycatererNth n = (n ^ 2 + n + 2) `div` 2
 
 lazyCaterer :: Int -> [Int]
-lazyCaterer k = [lazycatererNth a | a <- [0 .. k - 1]]
+lazyCaterer k = map lazycatererNth [0 .. k - 1]
 
 -- 4 --
 pretty :: Horse -> IO ()
