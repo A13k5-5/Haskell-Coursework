@@ -9,9 +9,6 @@ horse =
     "     /'\\-) "
   ]
 
-text :: [String]
-text = ["abc", "def", "ghi"]
-
 mirror :: Horse -> Horse
 mirror = map reverse
 
@@ -28,13 +25,13 @@ turn270 :: Horse -> Horse
 turn270 = mirror . transpose . mirror
 
 -- 3 --
-nextTrib :: (Num c) => (c, c, c) -> (c, c, c)
+nextTrib :: (Int, Int, Int) -> (Int, Int, Int)
 nextTrib (a, b, c) = (b, c, a + b + c)
 
 fst3 :: (a, b, c) -> a
 fst3 (x, _, _) = x
 
-tribonacci :: (Num c) => Int -> [c]
+tribonacci :: Int -> [Int]
 tribonacci k = take k (map fst3 $ iterate nextTrib (0, 0, 1))
 
 lazycatererNth :: Int -> Int
